@@ -1,9 +1,17 @@
 (function () {
 
 // Max value for each R, G and B value for a pixel to be considered part of the line of a pipe.
-var THRESHOLD = 9;
-    canvas = $('#canvas')[0];
-    context = canvas.getContext('2d');
+var THRESHOLD = 9,
+    canvas = $('#canvas')[0],
+    context = canvas.getContext('2d'),
+    mouseX = 0,
+    mouseY = 0,
+    bounds = canvas.getBoundingClientRect();
+
+$('canvas').mousemove(function (event) {
+    mouseX = event.clientX - bounds.left;
+    mouseY = event.clientY - bounds.top;
+})
 
 /**
  * Returns the current Y position of the bird (if not visible, it guesses the top).
@@ -74,15 +82,6 @@ function getPipeYAt(x) {
         }
     }
 }
-
-var mouseX = 0,
-    mouseY = 0;
-    bounds = canvas.getBoundingClientRect();
-
-$('canvas').mousemove(function (event) {
-    mouseX = event.clientX - bounds.left;
-    mouseY = event.clientY - bounds.top;
-})
 
 /**
  * Returns the maximum Y value the bird should be.
