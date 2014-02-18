@@ -1,9 +1,16 @@
 /***
 
-Adds two checkboxes the top bar: "Autojump" and "Jump at mouse".
+From https://github.com/boppreh/flappybot
 
-"Autojump" makes the bird automatically jump to pass the gaps on the pipes.
-"Jump at mouse" changes the autojump behavior so it jumps at the mouse position.
+This is a bot that plays by itself the Flappy Bird-based game FlappyMMO.
+
+To use it, open the game page (http://flapmmo.com), open the browser console, paste
+the contents of the file `flappy_bot.js`, and press enter to run it.
+
+It adds two checkboxes to the top bar: "Autojump" and "Jump at mouse".
+
+"Autojump" makes the bird automatically jump to pass the gaps on the pipes (on by default).
+"Jump at mouse" changes the autojump behavior so it jumps at the mouse position (off by default).
 
 All AI is done by reading the canvas, and the jump is done by simulating a mouse press.
 Since it read the pixels value to understand the game, it may have issues on:
