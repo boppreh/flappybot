@@ -143,6 +143,8 @@ function flap() {
     }
 }
 
+// Cross-browser compatible way to request frames. Intervals not included
+// because they are not precise enough.
 var requestAnimationFrame = window.requestAnimationFrame ||
                             window.webkitRequestAnimationFrame ||
                             window.mozRequestAnimationFrame;
@@ -154,6 +156,7 @@ var requestAnimationFrame = window.requestAnimationFrame ||
     }
 })();
 
+// Creates checkboxes for "autojump" and "jump at mouse".
 $('<label><input id="autojump" type="checkbox" checked="true"> Autojump</label> <label><input id="mousejump" type="checkbox"> Jump at mouse</label>').insertAfter('#nickname');
 
 }());
