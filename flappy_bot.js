@@ -1,3 +1,5 @@
+(function () {
+
 var THRESHOLD = 9;
 
 var canvas = $('#canvas')[0];
@@ -112,4 +114,6 @@ window.requestAnimFrame = (function(){
     }
 })();
 
-$('<label><input id="autojump" type="checkbox"> Autojump</label> <label><input id="mousejump" type="checkbox"> Jump at mouse</label>').insertAfter('#nickname')
+$('<label><input id="autojump" type="checkbox"> Autojump</label> <label><input id="mousejump" type="checkbox"> Jump at mouse</label>').insertAfter('#nickname');
+
+}());
