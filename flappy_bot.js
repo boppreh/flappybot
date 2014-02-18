@@ -77,30 +77,35 @@ function getPipeX() {
             g = line[i + 1],
             b = line[i + 2];
         
-        // Looks black enough for me.
+        // Looks black enough for me. It's probably the pipe outline.
         if (r < THRESHOLD && g < THRESHOLD && b < THRESHOLD) {
             var x = i / 4 + startX;
             return x;
         }
     } 
+
+    // In case something goes wrong, better not return "undefined".
+    return 0;
 }
 
 /**
  * Returns the bottom Y of the gap in a pipe. given the X position of the pipe.
  */
 function getPipeYAt(x) {
-    if (x === undefined) {
-        return 0;
-    }
+    // Scans a column of pixels (that should be the pipe outline), looking for the top of the gap.
+    // Then returns the calculated position of the bottom of the gap.
 
     var column = context.getImageData(x, 0, 1, canvas.height).data;
+
     for (var i = 0; i < column.length; i+=4) {
         var r = column[i + 0],
             g = column[i + 1],
             b = column[i + 2];
 
+        // Looks not-black enough for me. It's probably not the pipe outline.
         if (g > THRESHOLD || g > THRESHOLD || b > THRESHOLD) {
             var y = i / 4;
+            // Value measured by hand.
             return y + 146;
         }
     }
