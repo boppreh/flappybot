@@ -139,6 +139,11 @@ function getPipeYAt(x) {
             return y + 146;
         }
     }
+
+    // In case something goes wrong, better not return "undefined".
+    // Also, last I checked there are no pipes after distance=100,
+    // so this may be actually useful.
+    return 0;
 }
 
 /**
