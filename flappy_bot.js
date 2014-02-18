@@ -8,6 +8,7 @@ var THRESHOLD = 9,
     mouseY = 0,
     bounds = canvas.getBoundingClientRect();
 
+// Register a listener and store mouse position relative to the canvas.
 $('canvas').mousemove(function (event) {
     mouseX = event.clientX - bounds.left;
     mouseY = event.clientY - bounds.top;
@@ -17,16 +18,24 @@ $('canvas').mousemove(function (event) {
  * Returns the current Y position of the bird (if not visible, it guesses the top).
  */
 function getBirdY() {
+    // Scans a thin stripe on the expected bird position, looking for the beak color.
+    // The target is to return the Y position of the bottommost pixel with that color.
+
+    // Minimum X value for the part we are looking for.
     var birdStartX = 90,
+        // Number of pixel columns to scan above "birdStartX".
         nColumns = 30,
+        // Number of pixel rows to scan.
         nRows = 400,
         pixels = context.getImageData(birdStartX, 0, nColumns, nRows).data,
+        // Desired value.
         maxY = 0;
 
     for (var column = 0; column < nColumns; column++) {
         var x = birdStartX + column;
 
-        for (var row = maxY; row < nRows; row++) {
+        // Scans the rows from bottom to top, so we can cancel sooner when we find the beak.
+        for (var row = nRows - 1; row >= maxY; row--) {
             var startIndex = (row * nColumns + column) * 4,
                 r = pixels[startIndex + 0],
                 g = pixels[startIndex + 1],
@@ -36,10 +45,14 @@ function getBirdY() {
 
             if (dif < 10 && row > maxY) {
                 maxY = row;
+                // We are scanning backwards, so there will be no better pixel in this column.
+                break;
             }
         }
     }
 
+    // The beak is not the bottommost part of the bird, so we add an extra value.
+    // This number was reached by careful manual testing.
     return maxY + 11;
 }
 
@@ -115,6 +128,6 @@ var requestAnimationFrame = window.requestAnimationFrame ||
     }
 })();
 
-$('<label><input id="autojump" type="checkbox" value="true"> Autojump</label> <label><input id="mousejump" type="checkbox"> Jump at mouse</label>').insertAfter('#nickname');
+$('<label><input id="autojump" type="checkbox" checked="true"> Autojump</label> <label><input id="mousejump" type="checkbox"> Jump at mouse</label>').insertAfter('#nickname');
 
 }());
