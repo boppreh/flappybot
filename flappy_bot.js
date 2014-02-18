@@ -95,6 +95,11 @@ function getPipeYAt(x) {
     // Scans a column of pixels (that should be the pipe outline), looking for the top of the gap.
     // Then returns the calculated position of the bottom of the gap.
 
+    // As with `getPipeX`, it may break with the black outline of player's nicknames.
+
+    // This function was separated from `getPipeX` to aid debugging. The complete
+    // function has been renamed `getPipeY`.
+
     var column = context.getImageData(x, 0, 1, canvas.height).data;
 
     for (var i = 0; i < column.length; i+=4) {
