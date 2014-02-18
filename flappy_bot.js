@@ -115,6 +115,6 @@ var requestAnimationFrame = window.requestAnimationFrame ||
     }
 })();
 
-$('<label><input id="autojump" type="checkbox"> Autojump</label> <label><input id="mousejump" type="checkbox"> Jump at mouse</label>').insertAfter('#nickname');
+$('<label><input id="autojump" type="checkbox" value="true"> Autojump</label> <label><input id="mousejump" type="checkbox"> Jump at mouse</label>').insertAfter('#nickname');
 
 }());
