@@ -1,9 +1,13 @@
 (function () {
 
+// Max value for each R, G and B value for a pixel to be considered part of the line of a pipe.
 var THRESHOLD = 9;
     canvas = $('#canvas')[0];
     context = canvas.getContext('2d');
 
+/**
+ * Returns the current Y position of the bird (if not visible, it guesses the top).
+ */
 function getBirdY() {
     var birdStartX = 90,
         nColumns = 30,
@@ -31,6 +35,9 @@ function getBirdY() {
     return maxY + 11;
 }
 
+/**
+ * Returns the X position of first vertical line of the next pipe.
+ */
 function getPipeX() {
     var startX = 50;
         line = context.getImageData(startX, 0, canvas.width, 1).data;
@@ -47,9 +54,12 @@ function getPipeX() {
     } 
 }
 
+/**
+ * Returns the bottom Y of the gap in a pipe. given the X position of the pipe.
+ */
 function getPipeYAt(x) {
     if (x === undefined) {
-        return 200;
+        return 0;
     }
 
     var column = context.getImageData(x, 0, 1, canvas.height).data;
@@ -74,36 +84,33 @@ $('canvas').mousemove(function (event) {
     mouseY = event.clientY - bounds.top;
 })
 
-function flap() {
-    var birdY = getBirdY();
-
-    var targetY;
+/**
+ * Returns the maximum Y value the bird should be.
+ */
+function getMaxY() {
     if ($('#mousejump').is(':checked')) {
+        return mouseY;
         targetY = mouseY;
     } else {
-        targetY = getPipeYAt(getPipeX());
+        return getPipeYAt(getPipeX());
     }
-   
-    if (birdY >= targetY) {
+}
+
+/**
+ * Clicks the screen if the bird is flying too low.
+ */
+function flap() {
+    if (getBirdY() >= getMaxY()) {
         $('canvas').mousedown();
     }
 }
 
-window.requestAnimFrame = (function(){
-    return window.requestAnimationFrame       ||
-           window.webkitRequestAnimationFrame ||
-           window.mozRequestAnimationFrame    ||
-           function( callback ){
-               window.setTimeout(callback, 1000 / 60);
-           };
-})();
+var requestAnimationFrame = window.requestAnimationFrame ||
+                            window.webkitRequestAnimationFrame ||
+                            window.mozRequestAnimationFrame;
 
-
-// usage:
-// instead of setInterval(render, 16) ....
-
-(function animloop(){
-    requestAnimFrame(animloop);
+(function gameLoop(){
+    requestAnimationFrame(gameLoop);
     if ($('#autojump').is(':checked')) {
         flap();
     }
