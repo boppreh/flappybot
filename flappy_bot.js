@@ -1,11 +1,8 @@
 (function () {
 
 var THRESHOLD = 9;
-
-var canvas = $('#canvas')[0];
-var context = canvas.getContext('2d');
-
-var previousBird = 0;
+    canvas = $('#canvas')[0];
+    context = canvas.getContext('2d');
 
 function getBirdY() {
     var birdStartX = 90,
@@ -79,8 +76,6 @@ $('canvas').mousemove(function (event) {
 
 function flap() {
     var birdY = getBirdY();
-
-    previousBird = birdY;
 
     var targetY;
     if ($('#mousejump').is(':checked')) {
