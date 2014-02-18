@@ -19,6 +19,8 @@ Since it read the pixels value to understand the game, it may have issues on:
 So, for best results disable "performance mode", don't use a nickname and give it a few tries
 to get past the mass of the players.
 
+While it is autoplaying, you can still jump manually or change to other browser tabs.
+
 PS: this was made for fun. Creating bots that understand images is always fun, and flappy is perfect
 for this. I don't know if scores made this way are actually submitted, and there's no effort at disguising
 itself.
