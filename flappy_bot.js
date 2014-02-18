@@ -32,8 +32,8 @@ disguising itself.
 (function () {
 
 // Max value for each R, G and B value for a pixel to be considered part of the line of a pipe.
-var THRESHOLD = 9,
-    canvas = $('#canvas')[0],
+var THRESHOLD = 10,
+    canvas = $('canvas')[0],
     context = canvas.getContext('2d'),
     mouseX = 0,
     mouseY = 0,
