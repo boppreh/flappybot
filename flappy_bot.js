@@ -21,6 +21,8 @@ function getBirdY() {
     // Scans a thin stripe on the expected bird position, looking for the beak color.
     // The target is to return the Y position of the bottommost pixel with that color.
 
+    // If "performance" is checked, other birds will have exactly the same beak color and it'll break.
+
     // Minimum X value for the part we are looking for.
     var birdStartX = 90,
         // Number of pixel columns to scan above "birdStartX".
@@ -60,6 +62,13 @@ function getBirdY() {
  * Returns the X position of first vertical line of the next pipe.
  */
 function getPipeX() {
+    // Scans the first row of pixels on canvas and return the X position of the first blackish pixel.
+    // The idea is to find the vertical black line of the first pipe.
+
+    // Player's nicknames can break this because of their black outline.
+
+    // Minimum X value to start searching. This is used to ignore pipes still on the screen
+    // but that the bird has passed already.
     var startX = 50;
         line = context.getImageData(startX, 0, canvas.width, 1).data;
 
@@ -68,6 +77,7 @@ function getPipeX() {
             g = line[i + 1],
             b = line[i + 2];
         
+        // Looks black enough for me.
         if (r < THRESHOLD && g < THRESHOLD && b < THRESHOLD) {
             var x = i / 4 + startX;
             return x;
