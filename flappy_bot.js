@@ -89,7 +89,7 @@ function getPipeX() {
 }
 
 /**
- * Returns the bottom Y of the gap in a pipe. given the X position of the pipe.
+ * Returns the bottom Y of the gap in a pipe, given the X position of the pipe.
  */
 function getPipeYAt(x) {
     // Scans a column of pixels (that should be the pipe outline), looking for the top of the gap.
@@ -112,6 +112,13 @@ function getPipeYAt(x) {
 }
 
 /**
+ * Returns the bottom Y of the gap in the next pipe.
+ */
+function getPipeY() {
+    return getPipeYAt(getPipeX())
+}
+
+/**
  * Returns the maximum Y value the bird should be.
  */
 function getMaxY() {
@@ -119,7 +126,7 @@ function getMaxY() {
         return mouseY;
         targetY = mouseY;
     } else {
-        return getPipeYAt(getPipeX());
+        return getPipeY();
     }
 }
 
