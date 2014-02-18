@@ -129,7 +129,6 @@ function getPipeY() {
 function getMaxY() {
     if ($('#mousejump').is(':checked')) {
         return mouseY;
-        targetY = mouseY;
     } else {
         return getPipeY();
     }
